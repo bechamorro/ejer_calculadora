@@ -1,0 +1,54 @@
+1. Calculadora Express
+    No es porque sea una calculador muy rápida, sino porque la tenéis que hacer con Node y Express.
+    En concreto mediante parámetros sobre la ruta.
+    Dicha calculadora en la propia ruta se le va a enviar la operacion, y dos números, 
+     y debe mostrar el resultado. Un ejemplo de llamada en el navegador sería:
+            localhost:3000/calcular/suma/2/4
+            El resultado es 6
+        localhost:3000/calcular/multiplicacion/2/4
+        localhost:3000/calcular/division/2/4
+        localhost:3000/calcular/resta/2/4
+    Cosas a tener en cuenta:
+        - Un mensajito inicial en la ruta /calcular sobre cómo debemos meter la información
+        no estaría mal
+        - También tenéis que tener cuidado con las divisiones por 0
+        - ¿Qué pasaría si no metemos nada más que un número, o ninguno?
+2. Volvemos con la calculadora
+    Realizar lo mismo, pero con entrada por query, a través de ?
+    Es decir, el ejemplo de llamada en el navegador sería este:
+    
+        localhost:3000/calcular?operacion=suma&&numero1=2&&numero2=4
+        El resultado es 6
+    
+    También hay que ver los casos de divisiones por 0
+    Si no metemos nada más que un número o ninguno, o no hay operación, etc.
+    Nota: Aunque no lo creáis esta es una forma mucho más habitual que la anterior.
+3. Atando cabos
+    
+    Crear un servicio ya sea en Docker-Swarm o en Kubernetes (el que queráis) que os lance 
+    cualquiera de las dos calculadoras de los ejercicios anteriores.
+    Crear el Dockerfile correpondiente y el ficheros docker-compose.yml para Docker Swarm o 
+    los ficheros .yml de kubernetes que lo desplieguen.
+    Si ya sois la repera, que se vea en el dominio www.calculadora-express.com
+4. Solo para los developer express, que ya saben algo de Node.js
+    Si habéis terminado los tres anteriores, vamos a tomar el fichero alumnos.txt que utilizamos 
+    en las sesiones de contenedores y tenemos que crear un servicio que nos gestione ese fichero.
+    Recordar que la información es .json a pesar de que aparezca .txt
+    Queremos un servicio express con endopoints como los siguientes:
+    - /api/estadisticas
+    - /api/estadisticas/:carrera
+        devuelven las estadisticas de notas:
+            - media de las notas
+            - media de las notas por carrera
+    - /api/carrera/:carrera
+        devuelve los alumnos por carrera
+    - /api/pagados
+        devuelve aquellos alumnos que están al corriente de pagos
+    - /api/nopagados
+        devuelve aquellos alumnos que no están al corriente de pagos
+    - /api/:cuenta
+        que, dependiendo de método de petición:
+        - Si es GET, devuelve los datos del alumno
+        - Si es POST, almacena un nuevo alumno siempre que esa cuenta no esté en el fichero
+        - Si es PUT, modifica el alumno de dicha cuenta
+        - si es DELETE, elimina el alumno
